@@ -35,7 +35,7 @@ pipeline {
         //INSTALL_LOG_FILE3 = '\\\\dwbtsweb03\\d\$\\BizTalk\\Jenkins\\LOG\\InstallMSI.log'
         DEPLOY_DEPLOYMENTPS_FILE_PATH = 'Kaplan.BizTalk.SRM.CI\\PSScripts\\DeployMSI.ps1'
         ////DEPLOY_LOG_FILE1 = "\\\\dwbtsweb01\\d\$\\BizTalk\\Jenkins\\LOG\\Deploy.log"
-        DEPLOY_LOG_FILE1 = "\\\\Desktop-tre73rq\d\$\\Jenkins\\BizTalk\\LOG\\Deploy.log"
+        DEPLOY_LOG_FILE1 = "\\\\Desktop-tre73rq\\d\$\\Jenkins\\BizTalk\\LOG\\Deploy.log"
         //DEPLOY_LOG_FILE2 = "\\\\dwbtsweb02\\d\$\\BizTalk\\Jenkins\\LOG\\Deploy.log"
         //DEPLOY_LOG_FILE3 = "\\\\dwbtsweb03\\d\$\\BizTalk\\Jenkins\\LOG\\Deploy.log"
         DEPLOY_ENVIRONMENT_SETTINGS_FILE_NAME = "Exported_DevSettings.xml"
