@@ -54,9 +54,11 @@ pipeline {
                 echo 'Upgrading version'
                 bat "powershell.exe -ExecutionPolicy Bypass -File \"" + UPGRADE_UPGRADEVERPS_FILE_PATH + "\" -BTDFProjFilePath \"" + DEPLOYMENT_PROJECT_FILE_PATH + "\" "
                 echo 'Commiting to GIT'
-                git add "${DEPLOYMENT_PROJECT_FILE_PATH}"
-                git commit -m "${UPGRADE_GIT_COMMIT_MESSAGE}"
-                git push origin HEAD: "${GIT_BRANCH_NAME}"
+                sh '''
+                git add .
+                git commit -m "testing"
+                git push
+                '''
                 // withCredentials([usernamePassword(credentialsId: 'mygithub', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                 //     // sh("git tag -a some_tag -m 'Jenkins'")
                 //     // sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> --tags')
