@@ -1,0 +1,157 @@
+﻿#if __DESIGNER_DATA
+#error Do not define __DESIGNER_DATA.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<om:MetaModel MajorVersion="1" MinorVersion="3" Core="2b131234-7959-458d-834f-2dc0769ce683" ScheduleModel="66366196-361d-448d-976f-cab5e87496d2" xmlns:om="http://schemas.microsoft.com/BizTalk/2003/DesignerData">
+    <om:Element Type="Module" OID="b93da2f5-c0b1-4ed1-a229-0c53303726dd" LowerBound="1.1" HigherBound="33.1">
+        <om:Property Name="ReportToAnalyst" Value="True" />
+        <om:Property Name="Name" Value="Practice_1" />
+        <om:Property Name="Signal" Value="False" />
+        <om:Element Type="PortType" OID="64880761-05f0-4686-bdc6-e229d9639de7" ParentLink="Module_PortType" LowerBound="4.1" HigherBound="11.1">
+            <om:Property Name="Synchronous" Value="True" />
+            <om:Property Name="TypeModifier" Value="Public" />
+            <om:Property Name="ReportToAnalyst" Value="True" />
+            <om:Property Name="Name" Value="PortType_1" />
+            <om:Property Name="Signal" Value="False" />
+            <om:Element Type="OperationDeclaration" OID="8a0ea0a0-75aa-4232-8827-1399bad2ee23" ParentLink="PortType_OperationDeclaration" LowerBound="6.1" HigherBound="10.1">
+                <om:Property Name="OperationType" Value="RequestResponse" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="Que_pedo" />
+                <om:Property Name="Signal" Value="True" />
+                <om:Element Type="MessageRef" OID="9739c5ca-c4f0-4eba-bf5b-ab32ee2b17f1" ParentLink="OperationDeclaration_RequestMessageRef" LowerBound="8.13" HigherBound="8.27">
+                    <om:Property Name="Ref" Value="Practice_1.Request_Alumno" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="Request" />
+                    <om:Property Name="Signal" Value="True" />
+                </om:Element>
+                <om:Element Type="MessageRef" OID="3e5fe275-d584-4d05-a4b3-d03cdf53dbda" ParentLink="OperationDeclaration_ResponseMessageRef" LowerBound="8.29" HigherBound="8.44">
+                    <om:Property Name="Ref" Value="Practice_1.Response_Alumno" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="Response" />
+                    <om:Property Name="Signal" Value="True" />
+                </om:Element>
+            </om:Element>
+        </om:Element>
+        <om:Element Type="ServiceDeclaration" OID="1426fda2-f7bd-466a-9754-23aed2167cc6" ParentLink="Module_ServiceDeclaration" LowerBound="11.1" HigherBound="32.1">
+            <om:Property Name="InitializedTransactionType" Value="False" />
+            <om:Property Name="IsInvokable" Value="False" />
+            <om:Property Name="TypeModifier" Value="Internal" />
+            <om:Property Name="ReportToAnalyst" Value="True" />
+            <om:Property Name="Name" Value="Create_alumno" />
+            <om:Property Name="Signal" Value="False" />
+            <om:Element Type="ServiceBody" OID="f3846874-70ff-478a-a99b-750a102ab795" ParentLink="ServiceDeclaration_ServiceBody">
+                <om:Property Name="Signal" Value="False" />
+                <om:Element Type="Receive" OID="fcb754b2-aa44-4d62-9ce6-f5d430b01ffb" ParentLink="ServiceBody_Statement" LowerBound="20.1" HigherBound="22.1">
+                    <om:Property Name="Activate" Value="True" />
+                    <om:Property Name="PortName" Value="Port_1" />
+                    <om:Property Name="MessageName" Value="msg_Request_system" />
+                    <om:Property Name="OperationName" Value="Que_pedo" />
+                    <om:Property Name="OperationMessageName" Value="Request" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="Receive_1" />
+                    <om:Property Name="Signal" Value="True" />
+                </om:Element>
+                <om:Element Type="Construct" OID="2d250986-09f7-4d4f-8ba5-f735332012fc" ParentLink="ServiceBody_Statement" LowerBound="22.1" HigherBound="28.1">
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="ConstructMessage_1" />
+                    <om:Property Name="Signal" Value="False" />
+                    <om:Element Type="Transform" OID="1a33b3d5-1d4e-4b17-b98b-b288885a59d4" ParentLink="ComplexStatement_Statement" LowerBound="25.1" HigherBound="27.1">
+                        <om:Property Name="ClassName" Value="Practice_1.Map_Response_system" />
+                        <om:Property Name="ReportToAnalyst" Value="True" />
+                        <om:Property Name="Name" Value="Transform_1" />
+                        <om:Property Name="Signal" Value="True" />
+                        <om:Element Type="MessagePartRef" OID="3794413a-aad5-4efd-990e-e44b333f1b6d" ParentLink="Transform_InputMessagePartRef" LowerBound="26.83" HigherBound="26.101">
+                            <om:Property Name="MessageRef" Value="msg_Request_system" />
+                            <om:Property Name="ReportToAnalyst" Value="True" />
+                            <om:Property Name="Name" Value="MessagePartReference_1" />
+                            <om:Property Name="Signal" Value="False" />
+                        </om:Element>
+                        <om:Element Type="MessagePartRef" OID="6b8a57b2-26dc-4822-9d0e-5210d4a42944" ParentLink="Transform_OutputMessagePartRef" LowerBound="26.28" HigherBound="26.47">
+                            <om:Property Name="MessageRef" Value="msg_Response_system" />
+                            <om:Property Name="ReportToAnalyst" Value="True" />
+                            <om:Property Name="Name" Value="MessagePartReference_2" />
+                            <om:Property Name="Signal" Value="False" />
+                        </om:Element>
+                    </om:Element>
+                    <om:Element Type="MessageRef" OID="97464d53-0f6b-4872-b5b2-8408bb50ff0f" ParentLink="Construct_MessageRef" LowerBound="23.23" HigherBound="23.42">
+                        <om:Property Name="Ref" Value="msg_Response_system" />
+                        <om:Property Name="ReportToAnalyst" Value="True" />
+                        <om:Property Name="Signal" Value="False" />
+                    </om:Element>
+                </om:Element>
+                <om:Element Type="Send" OID="bde0691f-b2d7-4975-a494-8500ef40cad6" ParentLink="ServiceBody_Statement" LowerBound="28.1" HigherBound="30.1">
+                    <om:Property Name="PortName" Value="Port_1" />
+                    <om:Property Name="MessageName" Value="msg_Response_system" />
+                    <om:Property Name="OperationName" Value="Que_pedo" />
+                    <om:Property Name="OperationMessageName" Value="Response" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="Send_1" />
+                    <om:Property Name="Signal" Value="True" />
+                </om:Element>
+            </om:Element>
+            <om:Element Type="PortDeclaration" OID="d2330807-fb59-477d-bc0b-baf8efe7e93b" ParentLink="ServiceDeclaration_PortDeclaration" LowerBound="14.1" HigherBound="16.1">
+                <om:Property Name="PortModifier" Value="Implements" />
+                <om:Property Name="Orientation" Value="Left" />
+                <om:Property Name="PortIndex" Value="-1" />
+                <om:Property Name="IsWebPort" Value="False" />
+                <om:Property Name="OrderedDelivery" Value="False" />
+                <om:Property Name="DeliveryNotification" Value="None" />
+                <om:Property Name="Type" Value="Practice_1.PortType_1" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="Port_1" />
+                <om:Property Name="Signal" Value="False" />
+                <om:Element Type="LogicalBindingAttribute" OID="53003b3c-b4d7-4e71-86e0-874c0f0d6bf4" ParentLink="PortDeclaration_CLRAttribute" LowerBound="14.1" HigherBound="15.1">
+                    <om:Property Name="Signal" Value="False" />
+                </om:Element>
+            </om:Element>
+            <om:Element Type="MessageDeclaration" OID="d60074fc-9b04-4348-ad02-b0397b99de80" ParentLink="ServiceDeclaration_MessageDeclaration" LowerBound="16.1" HigherBound="17.1">
+                <om:Property Name="Type" Value="Practice_1.Request_Alumno" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="msg_Request_system" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="MessageDeclaration" OID="59edc99d-c469-4717-9b1e-3c3bb3006dc4" ParentLink="ServiceDeclaration_MessageDeclaration" LowerBound="17.1" HigherBound="18.1">
+                <om:Property Name="Type" Value="Practice_1.Response_Alumno" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="msg_Response_system" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+        </om:Element>
+    </om:Element>
+</om:MetaModel>
+#endif // __DESIGNER_DATA
+[Microsoft.XLANGs.BaseTypes.BPELExportable(false)]
+module Practice_1
+{
+    public porttype PortType_1
+    {
+        requestresponse Que_pedo
+        {
+            Request_Alumno, Response_Alumno
+        };
+    };
+    [Microsoft.XLANGs.BaseTypes.BPELExportable(false)]
+    internal service Create_alumno
+    {
+        [Microsoft.XLANGs.BaseTypes.LogicalBinding()]
+        port implements PortType_1 Port_1;
+        message Request_Alumno msg_Request_system;
+        message Response_Alumno msg_Response_system;
+        body ()
+        {
+            [Microsoft.XLANGs.BaseTypes.DesignerPosition("fcb754b2-aa44-4d62-9ce6-f5d430b01ffb")]
+            activate receive (Port_1.Que_pedo, msg_Request_system);
+            [Microsoft.XLANGs.BaseTypes.DesignerPosition("2d250986-09f7-4d4f-8ba5-f735332012fc")]
+            construct msg_Response_system
+            {
+                [Microsoft.XLANGs.BaseTypes.DesignerPosition("1a33b3d5-1d4e-4b17-b98b-b288885a59d4")]
+                transform (msg_Response_system) = Practice_1.Map_Response_system (msg_Request_system);
+            }
+            [Microsoft.XLANGs.BaseTypes.DesignerPosition("bde0691f-b2d7-4975-a494-8500ef40cad6")]
+            send (Port_1.Que_pedo, msg_Response_system);
+        }
+    }
+}
+

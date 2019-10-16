@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://Practice_1.Request_Alumno" xmlns:b="http://schemas.microsoft.com/BizTalk/2003" targetNamespace="http://Practice_1.Request_Alumno" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Request_system">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Nombre" type="xs:string" />
+        <xs:element name="Apellidos" type="xs:string" />
+        <xs:element name="Edad" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="Contactos">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Nombre" type="xs:string" />
+              <xs:element name="Apellidos" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

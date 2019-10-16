@@ -1,0 +1,108 @@
+/*
+Description: Jenkinsfile for SRM DEV deployment
+Pipeline: Kaplan.BizTalk.SRM_Deployment_DEV
+GIT Path: BizTalk-SRM-2016/Kaplan.BizTalk.SRM.CI/BizTalk_Deployment_DEV
+*/
+pipeline {
+    agent any 
+     environment {
+        //global
+        GIT_BRANCH_NAME = "${GIT_BRANCH_NAME}".replaceAll('origin/','')
+        CONFIGURATION = "${BUILD_CONFIGURATION}"
+        DEPLOYMENT_PROJECT_FILE_PATH = "${DEPLOYMENT_PROJECT_FILE_PATH}" 
+        ////SERVER_NAME1 = 'dwbtsweb01.charlie.kaplaninc.com'
+        SERVER_NAME1 = 'Desktop-tre73rq'
+        //SERVER_NAME2 = 'dwbtsweb02.charlie.kaplaninc.com'
+        //SERVER_NAME3 = 'dwbtsweb03.charlie.kaplaninc.com'
+        MSI_NAME= "${MSI_NAME}" 
+        INSTALLPATH = "${INSTALLATION_PATH}" 
+        //for each stage
+        BUILD_SOLUTION_FILE_PATH = "${BUILD_SOLUTION_FILE_PATH}" 
+        ////BUILD_LOG_FILE = '\\\\dwbtsweb01\\d\$\\BizTalk\\Jenkins\\LOG\\Build.log'
+        BUILD_LOG_FILE = '\\\\Desktop-tre73rq\D$\\Jenkins\\BizTalk\\LOG\\Build.log'
+        ////UPGRADE_UPGRADEVERPS_FILE_PATH =  'Kaplan.BizTalk.SRM.CI\\PSScripts\\UpgradeBTDFProductVersion.ps1'
+        UPGRADE_UPGRADEVERPS_FILE_PATH =  'Practice_1\\PSScripts\\UpgradeBTDFProductVersion.ps1'
+        UPGRADE_GIT_COMMIT_MESSAGE = "${UPGRADE_GIT_COMMIT_MESSAGE}" 
+        ////GENERATEMSI_OUTDIR = "\\\\dwbtsweb01\\d\$\\BizTalk\\Jenkins\\MSI\\${GIT_BRANCH_NAME}".replaceAll('origin/','')
+        GENERATEMSI_OUTDIR = "\\\\Desktop-tre73rq\D$\\Jenkins\\BizTalk\\MSI\\${GIT_BRANCH_NAME}".replaceAll('origin/','')
+        //COPY_MSI_OUTDIR2 =   "\\\\dwbtsweb02\\d\$\\BizTalk\\Jenkins\\MSI\\${GIT_BRANCH_NAME}".replaceAll('origin/','')
+        //COPY_MSI_OUTDIR3 =   "\\\\dwbtsweb03\\d\$\\BizTalk\\Jenkins\\MSI\\${GIT_BRANCH_NAME}".replaceAll('origin/','')
+        ////GENERATEMSI_LOG_FILE = '\\\\dwbtsweb01\\d\$\\BizTalk\\Jenkins\\LOG\\GenerateMSI.log'
+        GENERATEMSI_LOG_FILE  =  '\\\\Desktop-tre73rq\D$\\Jenkins\\BizTalk\\GenerateMSI.log'
+        INSTALL_INSTALLPS_FILE_PATH = 'Practice_1\\PSScripts\\InstallMSI.ps1'
+        INSTALL_LOG_FILE1 = '\\\\Desktop-tre73rq\D$\\Jenkins\\BizTalk\\LOG\\InstallMSI.log'
+        //INSTALL_LOG_FILE2 = '\\\\dwbtsweb02\\d\$\\BizTalk\\Jenkins\\LOG\\InstallMSI.log'
+        //INSTALL_LOG_FILE3 = '\\\\dwbtsweb03\\d\$\\BizTalk\\Jenkins\\LOG\\InstallMSI.log'
+        DEPLOY_DEPLOYMENTPS_FILE_PATH = 'Kaplan.BizTalk.SRM.CI\\PSScripts\\DeployMSI.ps1'
+        ////DEPLOY_LOG_FILE1 = "\\\\dwbtsweb01\\d\$\\BizTalk\\Jenkins\\LOG\\Deploy.log"
+        DEPLOY_LOG_FILE1 = "\\\\Desktop-tre73rq\D$\\Jenkins\\BizTalk\\LOG\\Deploy.log"
+        //DEPLOY_LOG_FILE2 = "\\\\dwbtsweb02\\d\$\\BizTalk\\Jenkins\\LOG\\Deploy.log"
+        //DEPLOY_LOG_FILE3 = "\\\\dwbtsweb03\\d\$\\BizTalk\\Jenkins\\LOG\\Deploy.log"
+        DEPLOY_ENVIRONMENT_SETTINGS_FILE_NAME = "Exported_DevSettings.xml"
+    }
+    stages {
+        stage('Build') { 
+            steps {
+                echo 'Configuration: ' + CONFIGURATION
+                echo 'Building solution ' + BUILD_SOLUTION_FILE_PATH
+		        bat "\"${tool 'MSBuild_14'}\" " + BUILD_SOLUTION_FILE_PATH + " /p:Configuration=" + CONFIGURATION + " -fl -flp:logfile=\"" + BUILD_LOG_FILE + "\""
+            }
+        }
+        stage ('Upgrade installer version')
+        {
+            steps{
+                echo 'Upgrading version'
+                bat "powershell.exe -ExecutionPolicy Bypass -File \"" + UPGRADE_UPGRADEVERPS_FILE_PATH + "\" -BTDFProjFilePath \"" + DEPLOYMENT_PROJECT_FILE_PATH + "\" "
+                echo 'Commiting to GIT'
+                bat "git add \"" + DEPLOYMENT_PROJECT_FILE_PATH + "\""
+                bat "git commit -m \"" + UPGRADE_GIT_COMMIT_MESSAGE  + "\""
+                bat "git push origin HEAD:" + GIT_BRANCH_NAME
+            }
+        }
+        stage('Generate MSI') { 
+            steps {
+                echo 'Generating MSI '
+                bat "\"${tool 'MSBuild_14'}\" " + DEPLOYMENT_PROJECT_FILE_PATH + " /t:Installer /p:Configuration=" + CONFIGURATION + ";OutDir=\"" + GENERATEMSI_OUTDIR + "\" -fl -flp:logfile=\"" + GENERATEMSI_LOG_FILE + "\""
+            }
+        }
+        //-----------------------------Deshabilitado hasta el final---------------------
+        // stage('Copy MSI') { 
+        //     steps {
+        //         echo 'Copy MSI to server ' +  SERVER_NAME2
+        //         bat "xcopy \"" + GENERATEMSI_OUTDIR + "\" \"" + COPY_MSI_OUTDIR2 + "\\\" /Y"
+        //         echo 'Copy MSI to server ' +  SERVER_NAME3
+        //         bat "xcopy \"" + GENERATEMSI_OUTDIR + "\" \"" + COPY_MSI_OUTDIR3 + "\\\" /Y"
+        //     }
+        // }
+        stage('Install and Generate Environment Settings') { 
+            steps {
+                echo 'Installing MSI in server ' + SERVER_NAME1
+                bat "powershell.exe -ExecutionPolicy Bypass Invoke-Command -FilePath \"" + INSTALL_INSTALLPS_FILE_PATH + "\" -Computername " + SERVER_NAME1 + " -ArgumentList \"" + GENERATEMSI_OUTDIR + "\\" + MSI_NAME +  "\"," + "\"" + INSTALLPATH + "\"," + "\"" + INSTALL_LOG_FILE1 + "\""
+                //echo 'Installing MSI in server ' + SERVER_NAME2
+                //bat "powershell.exe -ExecutionPolicy Bypass Invoke-Command -FilePath \"" + INSTALL_INSTALLPS_FILE_PATH + "\" -Computername " + SERVER_NAME2 + " -ArgumentList \"" + COPY_MSI_OUTDIR2 + "\\" + MSI_NAME +  "\"," + "\"" + INSTALLPATH + "\"," + "\"" + INSTALL_LOG_FILE2 + "\""
+                //echo 'Installing MSI in server ' + SERVER_NAME3
+                //bat "powershell.exe -ExecutionPolicy Bypass Invoke-Command -FilePath \"" + INSTALL_INSTALLPS_FILE_PATH + "\" -Computername " + SERVER_NAME3 + " -ArgumentList \"" + COPY_MSI_OUTDIR3 + "\\" + MSI_NAME +  "\"," + "\"" + INSTALLPATH + "\"," + "\"" + INSTALL_LOG_FILE3 + "\""
+            }
+        }
+        stage('Deploy') { 
+            steps {
+                echo 'Deploying MSI in server ' + SERVER_NAME1
+                bat "powershell.exe -ExecutionPolicy Bypass -File \"" + DEPLOY_DEPLOYMENTPS_FILE_PATH + "\" -ServerName " + SERVER_NAME1 + " -InstallationPathOnServer " + INSTALLPATH + " -LogFile " + DEPLOY_LOG_FILE1 + " -EnvironmentSettingsFileName " + DEPLOY_ENVIRONMENT_SETTINGS_FILE_NAME + " -ThisIsTheLastServer false"
+                //echo 'Deploying MSI in server ' + SERVER_NAME2
+                //bat "powershell.exe -ExecutionPolicy Bypass -File \"" + DEPLOY_DEPLOYMENTPS_FILE_PATH + "\" -ServerName " + SERVER_NAME2 + " -InstallationPathOnServer " + INSTALLPATH + " -LogFile " + DEPLOY_LOG_FILE2 + " -EnvironmentSettingsFileName " + DEPLOY_ENVIRONMENT_SETTINGS_FILE_NAME + " -ThisIsTheLastServer false"
+                //echo 'Deploying MSI in server ' + SERVER_NAME3
+                //bat "powershell.exe -ExecutionPolicy Bypass -File \"" + DEPLOY_DEPLOYMENTPS_FILE_PATH + "\" -ServerName " + SERVER_NAME3 + " -InstallationPathOnServer " + INSTALLPATH + " -LogFile " + DEPLOY_LOG_FILE3 + " -EnvironmentSettingsFileName " + DEPLOY_ENVIRONMENT_SETTINGS_FILE_NAME + " -ThisIsTheLastServer true"
+            }
+        }
+        // stage('Deploy to Test') { 
+        //     steps {
+        //         timeout(time:5, unit:'DAYS')
+        //         {
+        //             input message:'Approve TEST deployment?'
+                    
+        //         }
+        //         build job: 'Kaplan.BizTalk.SRM_Deployment_TEST', parameters: [[$class: 'StringParameterValue', name: 'MSI_NAME', value: MSI_NAME], [$class: 'StringParameterValue', name: 'INSTALLATION_PATH', value: INSTALLPATH], [$class: 'StringParameterValue', name: 'GIT_BRANCH_NAME', value: GIT_BRANCH_NAME]], propagate: false, wait: false
+        //     }
+        // }
+    }
+}

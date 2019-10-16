@@ -1,0 +1,4 @@
+c:\users\josue\documents\visual studio 2015\Projects\Practice_1\Practice_1\bin\Debug\Practice_1.dll
+c:\users\josue\documents\visual studio 2015\Projects\Practice_1\Practice_1\bin\Debug\Practice_1.pdb
+c:\users\josue\documents\visual studio 2015\Projects\Practice_1\Practice_1\obj\Debug\Practice_1.dll
+c:\users\josue\documents\visual studio 2015\Projects\Practice_1\Practice_1\obj\Debug\Practice_1.pdb
