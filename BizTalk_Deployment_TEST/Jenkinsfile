@@ -21,7 +21,7 @@ pipeline {
         ////BUILD_LOG_FILE = '\\\\dwbtsweb01\\d\$\\BizTalk\\Jenkins\\LOG\\Build.log'
         BUILD_LOG_FILE = '\\\\Desktop-tre73rq\\d\$\\Jenkins\\BizTalk\\LOG\\Build.log'
         ////UPGRADE_UPGRADEVERPS_FILE_PATH =  'Kaplan.BizTalk.SRM.CI\\PSScripts\\UpgradeBTDFProductVersion.ps1'
-        UPGRADE_UPGRADEVERPS_FILE_PATH =  'Practice_1\\PSScripts\\UpgradeBTDFProductVersion.ps1'
+        UPGRADE_UPGRADEVERPS_FILE_PATH =  'Jenkins_Practice_1\\PSScripts\\UpgradeBTDFProductVersion.ps1'
         UPGRADE_GIT_COMMIT_MESSAGE = "${UPGRADE_GIT_COMMIT_MESSAGE}" 
         ////GENERATEMSI_OUTDIR = "\\\\dwbtsweb01\\d\$\\BizTalk\\Jenkins\\MSI\\${GIT_BRANCH_NAME}".replaceAll('origin/','')
         GENERATEMSI_OUTDIR = "\\\\Desktop-tre73rq\\d\$\\Jenkins\\BizTalk\\MSI\\${GIT_BRANCH_NAME}".replaceAll('origin/','')
@@ -29,7 +29,7 @@ pipeline {
         //COPY_MSI_OUTDIR3 =   "\\\\dwbtsweb03\\d\$\\BizTalk\\Jenkins\\MSI\\${GIT_BRANCH_NAME}".replaceAll('origin/','')
         ////GENERATEMSI_LOG_FILE = '\\\\dwbtsweb01\\d\$\\BizTalk\\Jenkins\\LOG\\GenerateMSI.log'
         GENERATEMSI_LOG_FILE  =  '\\\\Desktop-tre73rq\\d\$\\Jenkins\\BizTalk\\GenerateMSI.log'
-        INSTALL_INSTALLPS_FILE_PATH = 'Practice_1\\PSScripts\\InstallMSI.ps1'
+        INSTALL_INSTALLPS_FILE_PATH = 'Jenkins_Practice_1\\PSScripts\\InstallMSI.ps1'
         INSTALL_LOG_FILE1 = '\\\\Desktop-tre73rq\\d\$\\Jenkins\\BizTalk\\LOG\\InstallMSI.log'
         //INSTALL_LOG_FILE2 = '\\\\dwbtsweb02\\d\$\\BizTalk\\Jenkins\\LOG\\InstallMSI.log'
         //INSTALL_LOG_FILE3 = '\\\\dwbtsweb03\\d\$\\BizTalk\\Jenkins\\LOG\\InstallMSI.log'
