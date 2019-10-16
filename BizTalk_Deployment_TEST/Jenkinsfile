@@ -54,12 +54,9 @@ pipeline {
                 echo 'Upgrading version'
                 bat "powershell.exe -ExecutionPolicy Bypass -File \"" + UPGRADE_UPGRADEVERPS_FILE_PATH + "\" -BTDFProjFilePath \"" + DEPLOYMENT_PROJECT_FILE_PATH + "\" "
                 echo 'Commiting to GIT'
-                bat label: '', script: "git add \"" + DEPLOYMENT_PROJECT_FILE_PATH + "\""
-                //bat "git add \"" + DEPLOYMENT_PROJECT_FILE_PATH + "\""
-                //bat "git commit -m \"" + UPGRADE_GIT_COMMIT_MESSAGE  + "\""
-                bat label: '', script: "git commit -m \"" + UPGRADE_GIT_COMMIT_MESSAGE + "\""
-                bat label: '', script: "git push origin HEAD:" + GIT_BRANCH_NAME
-                //bat "git push origin HEAD:" + GIT_BRANCH_NAME
+                bat "git add \"" + DEPLOYMENT_PROJECT_FILE_PATH + "\""
+                bat "git commit -m \"" + UPGRADE_GIT_COMMIT_MESSAGE  + "\""
+                bat "git push origin HEAD:" + GIT_BRANCH_NAME
             }
         }
         stage('Generate MSI') { 
