@@ -54,16 +54,16 @@ pipeline {
                 echo 'Upgrading version'
                 bat "powershell.exe -ExecutionPolicy Bypass -File \"" + UPGRADE_UPGRADEVERPS_FILE_PATH + "\" -BTDFProjFilePath \"" + DEPLOYMENT_PROJECT_FILE_PATH + "\" "
                 echo 'Commiting to GIT'
-                // bat "git add \"" + DEPLOYMENT_PROJECT_FILE_PATH + "\""
-                // bat "git commit -m \"" + UPGRADE_GIT_COMMIT_MESSAGE  + "\""
-                // bat "git push origin HEAD:" + GIT_BRANCH_NAME
-                withCredentials([usernamePassword(credentialsId: 'mygithub', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                    // sh("git tag -a some_tag -m 'Jenkins'")
-                    // sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> --tags')
-                    sh("git add \"" + DEPLOYMENT_PROJECT_FILE_PATH + "\"")
-                    sh("git commit -m \"" + UPGRADE_GIT_COMMIT_MESSAGE  + "\"")
-                    sh("git push origin HEAD:" + GIT_BRANCH_NAME)
-                }
+                bat "D:\Program Files\Git\bin\git.exe add \"" + DEPLOYMENT_PROJECT_FILE_PATH + "\""
+                bat "D:\Program Files\Git\bin\git.exe commit -m \"" + UPGRADE_GIT_COMMIT_MESSAGE  + "\""
+                bat "D:\Program Files\Git\bin\git.exe push origin HEAD:" + GIT_BRANCH_NAME
+                // withCredentials([usernamePassword(credentialsId: 'mygithub', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                //     // sh("git tag -a some_tag -m 'Jenkins'")
+                //     // sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> --tags')
+                //     sh("git add \"" + DEPLOYMENT_PROJECT_FILE_PATH + "\"")
+                //     sh("git commit -m \"" + UPGRADE_GIT_COMMIT_MESSAGE  + "\"")
+                //     sh("git push origin HEAD:" + GIT_BRANCH_NAME)
+                // }
             }
         }
         stage('Generate MSI') { 
