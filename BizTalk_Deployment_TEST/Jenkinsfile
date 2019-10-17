@@ -33,7 +33,7 @@ pipeline {
         INSTALL_LOG_FILE1 = '\\\\Desktop-tre73rq\\d\$\\Jenkins\\BizTalk\\LOG\\InstallMSI.log'
         //INSTALL_LOG_FILE2 = '\\\\dwbtsweb02\\d\$\\BizTalk\\Jenkins\\LOG\\InstallMSI.log'
         //INSTALL_LOG_FILE3 = '\\\\dwbtsweb03\\d\$\\BizTalk\\Jenkins\\LOG\\InstallMSI.log'
-        DEPLOY_DEPLOYMENTPS_FILE_PATH = 'PSScripts\\DeployMSI.ps1'
+        DEPLOY_DEPLOYMENTPS_FILE_PATH = 'PSScripts\\Deployment.ps1'
         ////DEPLOY_LOG_FILE1 = "\\\\dwbtsweb01\\d\$\\BizTalk\\Jenkins\\LOG\\Deploy.log"
         DEPLOY_LOG_FILE1 = "\\\\Desktop-tre73rq\\d\$\\Jenkins\\BizTalk\\LOG\\Deploy.log"
         //DEPLOY_LOG_FILE2 = "\\\\dwbtsweb02\\d\$\\BizTalk\\Jenkins\\LOG\\Deploy.log"
@@ -87,7 +87,7 @@ pipeline {
         stage('Deploy') { 
             steps {
                 echo 'Deploying MSI in server ' + SERVER_NAME1
-                bat "powershell.exe -ExecutionPolicy Bypass -File \"" + DEPLOY_DEPLOYMENTPS_FILE_PATH + "\" -ServerName " + SERVER_NAME1 + " -InstallationPathOnServer " + INSTALLPATH + " -LogFile " + DEPLOY_LOG_FILE1 + " -EnvironmentSettingsFileName " + DEPLOY_ENVIRONMENT_SETTINGS_FILE_NAME + " -ThisIsTheLastServer false"
+                bat "powershell.exe -ExecutionPolicy Bypass -File \"" + DEPLOY_DEPLOYMENTPS_FILE_PATH + "\" -Computername " + SERVER_NAME1 + " -InstallationPathOnServer " + INSTALLPATH + " -LogFile " + DEPLOY_LOG_FILE1 + " -EnvironmentSettingsFileName " + DEPLOY_ENVIRONMENT_SETTINGS_FILE_NAME + " -ThisIsTheLastServer false"
                 //echo 'Deploying MSI in server ' + SERVER_NAME2
                 //bat "powershell.exe -ExecutionPolicy Bypass -File \"" + DEPLOY_DEPLOYMENTPS_FILE_PATH + "\" -ServerName " + SERVER_NAME2 + " -InstallationPathOnServer " + INSTALLPATH + " -LogFile " + DEPLOY_LOG_FILE2 + " -EnvironmentSettingsFileName " + DEPLOY_ENVIRONMENT_SETTINGS_FILE_NAME + " -ThisIsTheLastServer false"
                 //echo 'Deploying MSI in server ' + SERVER_NAME3
