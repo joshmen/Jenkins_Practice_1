@@ -87,7 +87,7 @@ pipeline {
         stage('Deploy') { 
             steps {
                 echo 'Deploying MSI in server ' + SERVER_NAME1
-                bat "powershell.exe -ExecutionPolicy Bypass -File \"" + DEPLOY_DEPLOYMENTPS_FILE_PATH + "\" -Computername " + SERVER_NAME1 + " -InstallationPathOnServer " + INSTALLPATH + " -LogFile " + DEPLOY_LOG_FILE1 + " -EnvironmentSettingsFileName " + DEPLOY_ENVIRONMENT_SETTINGS_FILE_NAME + " -ThisIsTheLastServer false"
+                bat "powershell.exe -ExecutionPolicy Bypass -File \"" + DEPLOY_DEPLOYMENTPS_FILE_PATH + "\" -ServerName " + SERVER_NAME1 + " -InstallationPathOnServer " + INSTALLPATH + " -LogFile " + DEPLOY_LOG_FILE1 + " -EnvironmentSettingsFileName " + DEPLOY_ENVIRONMENT_SETTINGS_FILE_NAME + " -ThisIsTheLastServer false"
                 //echo 'Deploying MSI in server ' + SERVER_NAME2
                 //bat "powershell.exe -ExecutionPolicy Bypass -File \"" + DEPLOY_DEPLOYMENTPS_FILE_PATH + "\" -ServerName " + SERVER_NAME2 + " -InstallationPathOnServer " + INSTALLPATH + " -LogFile " + DEPLOY_LOG_FILE2 + " -EnvironmentSettingsFileName " + DEPLOY_ENVIRONMENT_SETTINGS_FILE_NAME + " -ThisIsTheLastServer false"
                 //echo 'Deploying MSI in server ' + SERVER_NAME3
