@@ -77,7 +77,7 @@ pipeline {
         stage('Install and Generate Environment Settings') { 
             steps {
                 echo 'Installing MSI on server ' + SERVER_NAME1
-                bat "powershell.exe -ExecutionPolicy Bypass Invoke-Command -FilePath \"" + INSTALL_INSTALLPS_FILE_PATH + "\" -ArgumentList \"" + GENERATEMSI_OUTDIR + "\\" + MSI_NAME +  "\"," + "\"" + INSTALLPATH + "\"," + "\"" + INSTALL_LOG_FILE1 + "\""
+                bat "powershell.exe -ExecutionPolicy Bypass -FilePath \"" + INSTALL_INSTALLPS_FILE_PATH + "\" -ArgumentList \"" + GENERATEMSI_OUTDIR + "\\" + MSI_NAME +  "\"," + "\"" + INSTALLPATH + "\"," + "\"" + INSTALL_LOG_FILE1 + "\""
                 //echo 'Installing MSI in server ' + SERVER_NAME2
                 //bat "powershell.exe -ExecutionPolicy Bypass Invoke-Command -FilePath \"" + INSTALL_INSTALLPS_FILE_PATH + "\" -Computername " + SERVER_NAME2 + " -ArgumentList \"" + COPY_MSI_OUTDIR2 + "\\" + MSI_NAME +  "\"," + "\"" + INSTALLPATH + "\"," + "\"" + INSTALL_LOG_FILE2 + "\""
                 //echo 'Installing MSI in server ' + SERVER_NAME3
