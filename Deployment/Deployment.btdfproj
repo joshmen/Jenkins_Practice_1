@@ -50,8 +50,8 @@
     <!--     1) Increment ProductVersion -->
     <!--     2) Generate a new GUID and update ProductId with the new GUID -->
     <!--   This allows the new MSI to automatically uninstall (not undeploy!) the old MSI and install the new one. -->
-    <ProductVersion>1.0.0</ProductVersion>
-    <ProductId>171E9D44-90A5-4EAC-8550-EA146F77669B</ProductId>
+    <ProductVersion>1.0.02</ProductVersion>
+    <ProductId>8363f595-bb11-4b0e-95ba-6f8aa7211bd0</ProductId>
     <!-- BizTalk App Version Upgrade -->
     <ProductName>Practice_1 for BizTalk $(ProductVersion)</ProductName>
     <Manufacturer>Deployment Framework User</Manufacturer>
@@ -88,7 +88,7 @@
       <LocationPath>..\$(ProjectName)\bin\$(Configuration)</LocationPath>
     </Schemas>
     <Orchestrations Include="Practice_1.dll">
-        <LocationPath>..\$(ProjectName)\bin\$(Configuration)</LocationPath>
+      <LocationPath>..\$(ProjectName)\bin\$(Configuration)</LocationPath>
     </Orchestrations>
     <Transforms Include="Practice_1.dll">
       <LocationPath>..\$(ProjectName)\bin\$(Configuration)</LocationPath>
